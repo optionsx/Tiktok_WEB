@@ -5,8 +5,8 @@
   "type": "module",
   "main": "tiktok88.js",
   "scripts": {
-    "install": "npm install",
-    "start": "node ."
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node tiktok88.js"
   },
   "keywords": [],
   "author": "optionsx",
