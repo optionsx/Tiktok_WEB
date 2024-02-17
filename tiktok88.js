@@ -67,7 +67,6 @@ const result = await fejch(
 const stramit = fs.createWriteStream(process.argv[2].split("/").pop() + ".mp4");
 for await (const chunk of result.body) {
   // fs.appendFileSync(process.argv[2].split("/").pop() + ".mp4", chunk); // this works too but the video can't be played while recieving the data
-  stramit.write(chunk);
   process.stdout.write(
     "\r[Downloading Video] " +
       ((stramit.bytesWritten / result.headers.get("content-length")) * 100)
@@ -76,6 +75,7 @@ for await (const chunk of result.body) {
         ) +
       "%",
   );
+  stramit.write(chunk);
 }
 
 // this buffers the whole video into RAM/Memory and then writes it to the file, inefficient for large files
@@ -86,4 +86,4 @@ for await (const chunk of result.body) {
 //   Buffer.from(videoBuffer),
 // );
 
-console.log("[Video Downloaded Successfully]");
+console.log("\n[Video Downloaded Successfully]");
