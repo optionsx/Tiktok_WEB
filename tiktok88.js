@@ -2,6 +2,9 @@ import fs from "fs";
 import makeFetchCookie from "fetch-cookie";
 const fejch = makeFetchCookie(fetch);
 import { unraw } from "unraw";
+import process from "process";
+process.removeAllListeners("warning");
+
 if (process.argv.length < 3) {
   console.log("Usage: node tiktok88.js <tiktok-url>");
   process.exit(1);
@@ -65,7 +68,6 @@ const stramit = fs.createWriteStream(process.argv[2].split("/").pop() + ".mp4");
 for await (const chunk of result.body) {
   // fs.appendFileSync(process.argv[2].split("/").pop() + ".mp4", chunk); // this works too but the video can't be played while recieving the data
   stramit.write(chunk);
-  // progress bar
   process.stdout.write(
     "\r[Downloading Video] " +
       ((stramit.bytesWritten / result.headers.get("content-length")) * 100)
