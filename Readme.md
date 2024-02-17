@@ -20,17 +20,22 @@ To get started with this project, follow the steps below:
    ```bash
    git clone https://github.com/optionsx/Tiktok_WEB.git
    ```
-
-2. Install the dependencies:
+2. Navigate to the project directory:
 
    ```bash
-    npm install
-    ```
-3. Run the project:
+   cd Tiktok_WEB
+   ```
 
-4. ```bash
-    node Tiktok88.js <Tiktok Video URL>
-    ```
+3. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+5. Run the project:
+
+   ```bash
+   node . <tiktok video url>
+   ```
 
 ## Acknowledgements
 
