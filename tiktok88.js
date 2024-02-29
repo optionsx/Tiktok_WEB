@@ -80,15 +80,6 @@ export async function tiktok88(link = process.argv[2]) {
     );
     stramit.write(chunk);
   }
-
-  // this buffers the whole video into RAM/Memory and then writes it to the file, inefficient for large files
-
-  // const videoBuffer = await result.arrayBuffer();
-  // fs.writeFileSync(
-  //   link.split("/").pop() + ".mp4",
-  //   Buffer.from(videoBuffer),
-  // );
-
   console.log("\n[Video Downloaded Successfully]");
 }
 tiktok88();
