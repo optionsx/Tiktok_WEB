@@ -9,8 +9,6 @@ export async function tiktok88(link = process.argv[2]) {
     console.log("Usage: node tiktok88.js <tiktok-url>");
     process.exit(1);
   }
-  // gonna add image support, and save the images inside @creator folder!, not tonight cuz scheduled blackout, tomorrow!
-  // https://www.tiktok.com/@v1t3z1942/photo/7336245430310800646, will with this for experimental purposes
   const getSource = await fejch(
     link,
     {
@@ -40,7 +38,7 @@ export async function tiktok88(link = process.argv[2]) {
   let videoUrl = decodeURIComponent(unraw(
     [...source.matchAll(/,"playAddr":"(.*?)"/g)].map((x) => x[1])[0],
   ));
-  console.log("[Extracted Video Link Successfully]");
+  console.log(`[extracted ${MediaType} URL]`);
   const result = await fejch(
     videoUrl,
     {
@@ -66,6 +64,7 @@ export async function tiktok88(link = process.argv[2]) {
       "method": "GET",
     },
   );
+  console.log(fejch.toughCookie);
   const stramit = fs.createWriteStream(
     link.split("/").pop() + ".mp4",
   );
