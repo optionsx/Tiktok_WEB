@@ -34,11 +34,22 @@ export async function tiktok88(link = process.argv[2]) {
       "method": "GET",
     },
   );
+  const cleanURL = getSource.url.split("?")[0];
+  if (fs.existsSync(cleanURL.split("/").pop() + ".mp4")) {
+    console.log("File already exists");
+    process.exit(1);
+  }
+  const mediaType = cleanURL.includes("/photo/") ? "image" : "video";
+  if (mediaType === "image") {
+    console.log(
+      "This is an image, not a video, only videos supported currently",
+    );
+    process.exit(1);
+  }
   const source = await getSource.text();
   let videoUrl = decodeURIComponent(unraw(
     [...source.matchAll(/,"playAddr":"(.*?)"/g)].map((x) => x[1])[0],
   ));
-  console.log(`[extracted ${MediaType} URL]`);
   const result = await fejch(
     videoUrl,
     {
@@ -66,10 +77,10 @@ export async function tiktok88(link = process.argv[2]) {
   );
   console.log(fejch.toughCookie);
   const stramit = fs.createWriteStream(
-    link.split("/").pop() + ".mp4",
+    cleanURL.split("/").pop() + ".mp4",
   );
   for await (const chunk of result.body) {
-    // fs.appendFileSync(link.split("/").pop() + ".mp4", chunk); // this works too but the video can't be played while recieving the data
+    // fs.appendFileSync(cleanURL.split("/").pop() + ".mp4", chunk); // this works too but the video can't be played while recieving the data
     process.stdout.write(
       "\r[Downloading Video] " +
         ((stramit.bytesWritten / result.headers.get("content-length")) * 100)
