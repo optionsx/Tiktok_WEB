@@ -44,7 +44,7 @@ export async function tiktok88(link = process.argv[2]) {
     console.log(
       "This is an image, not a video, only videos supported currently",
     );
-    process.exit(1);
+    // process.exit(1);
   }
   const source = await getSource.text();
   let videoUrl = decodeURIComponent(unraw(
